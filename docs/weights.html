@@ -1,0 +1,217 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Weights class &#8212; Semianalytic Inference 2023-11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="SatGenData class" href="satgendata.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="weights-class">
+<h1>Weights class<a class="headerlink" href="#weights-class" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="analysis.Weights">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">analysis.</span></span><span class="sig-name descname"><span class="pre">Weights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">satgen_sim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dwarf</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.Weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides weights for <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output such that their distribution can approximate observed probability distributions.</p>
+<p>In detail, this class uses a <a class="reference internal" href="satgendata.html#analysis.SatGenData" title="analysis.SatGenData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SatGenData</span></code></a> object with sampled <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\boldsymbol{x},\,\boldsymbol{\theta})\)</span> distributions, as well
+as observed <span class="math notranslate nohighlight">\(f_i(\boldsymbol{\theta})\)</span> distributions and provides easy access to <span class="math notranslate nohighlight">\(f_i(\boldsymbol{\theta})/f_\mathrm{pred}(\boldsymbol{\theta})\)</span>,
+which acts as a weight on the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output such that the PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\boldsymbol{x},\,\boldsymbol{\theta})\cdot f_i(\boldsymbol{\theta})/f_\mathrm{pred}(\boldsymbol{\theta})\)</span>
+has a marginal distribution of <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span> matching observation. The marginal distribution of <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span> is the distribution
+inferred from <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> for the parameter <span class="math notranslate nohighlight">\(\boldsymbol{x}\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>sats</strong><span class="classifier">SatGenData</span></dt><dd><p>The <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites to use for <span class="math notranslate nohighlight">\(f_\mathrm{pred}\)</span> distributions.</p>
+</dd>
+<dt><strong>dwarf</strong><span class="classifier">Dwarf</span></dt><dd><p>The MW dwarf to use for <span class="math notranslate nohighlight">\(f_i\)</span> distributions</p>
+</dd>
+<dt><strong>Mstar, Mhalf, joint_mass</strong><span class="classifier">np.ndarray(float)</span></dt><dd><p>The weights derived from selecting on <span class="math notranslate nohighlight">\(M_\star\)</span>, <span class="math notranslate nohighlight">\(M_{1/2}\)</span>, or both combined, respectively.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>pdf(values)</strong></p></td>
+<td><p>Returns an interpolated PDF for the inferred distribution of <code class="docutils literal notranslate"><span class="pre">values</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>cdf(values)</strong></p></td>
+<td><p>Returns an interpolated CDF for the inferred distribution of <code class="docutils literal notranslate"><span class="pre">values</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>quantile(values)</strong></p></td>
+<td><p>Returns an interpolated quantile function (inverse CDF) for the inferred distribution of <code class="docutils literal notranslate"><span class="pre">values</span></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.Weights.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joint_mass'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.Weights.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an interpolated CDF for the inferred distribution of <code class="docutils literal notranslate"><span class="pre">values</span></code> based on one of the three weighting methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>values</strong><span class="classifier">str or list(float)</span></dt><dd><p>A parameter name used in <a class="reference internal" href="satgendata.html#analysis.SatGenData.get" title="analysis.SatGenData.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SatGenData.get()</span></code></a> or a list of parameter values for <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites.</p>
+</dd>
+<dt><strong>weight_nme</strong><span class="classifier">str, optional</span></dt><dd><p>The kind of weight to use. Accepted values are <cite>‘Mstar’</cite>, <cite>‘Mhalf’</cite>, or <cite>‘joint_mass’</cite>. Defaults to <cite>‘joint_mass’</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>scipy.interpolate.RegularGridInterpolator</dt><dd><p>Linearly interpolates the CDF of <code class="docutils literal notranslate"><span class="pre">values</span></code> with the weights described by <code class="docutils literal notranslate"><span class="pre">weight_name</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.Weights.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joint_mass'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">500</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.Weights.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an interpolated PDF for the inferred distribution of <code class="docutils literal notranslate"><span class="pre">values</span></code> based on one of the three weighting methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>values</strong><span class="classifier">str or list(float)</span></dt><dd><p>A parameter name used in <a class="reference internal" href="satgendata.html#analysis.SatGenData.get" title="analysis.SatGenData.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SatGenData.get()</span></code></a> or a list of parameter values for <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites.</p>
+</dd>
+<dt><strong>weight_nme</strong><span class="classifier">str, optional</span></dt><dd><p>The kind of weight to use. Accepted values are <cite>‘Mstar’</cite>, <cite>‘Mhalf’</cite>, or <cite>‘joint_mass’</cite>. Defaults to <cite>‘joint_mass’</cite>.</p>
+</dd>
+<dt><strong>bins</strong><span class="classifier">optional</span></dt><dd><p>Number of bins to interpolate between, passed to <code class="docutils literal notranslate"><span class="pre">np.histogram</span></code>. Defaults to 500.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>scipy.interpolate.RegularGridInterpolator</dt><dd><p>Linearly interpolates the histogram for the 1D PDF of <code class="docutils literal notranslate"><span class="pre">values</span></code> with the weights described by <code class="docutils literal notranslate"><span class="pre">weight_name</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.Weights.quantile">
+<span class="sig-name descname"><span class="pre">quantile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'joint_mass'</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.Weights.quantile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an interpolated quantile function (inverse CDF) for the inferred distribution of <code class="docutils literal notranslate"><span class="pre">values</span></code> based on one of the three weighting methods.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>values</strong><span class="classifier">str or list(float)</span></dt><dd><p>A parameter name used in <a class="reference internal" href="satgendata.html#analysis.SatGenData.get" title="analysis.SatGenData.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SatGenData.get()</span></code></a> or a list of parameter values for <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites.</p>
+</dd>
+<dt><strong>weight_nme</strong><span class="classifier">str, optional</span></dt><dd><p>The kind of weight to use. Accepted values are <cite>‘Mstar’</cite>, <cite>‘Mhalf’</cite>, or <cite>‘joint_mass’</cite>. Defaults to <cite>‘joint_mass’</cite>.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>scipy.interpolate.InterpolatedUnivariateSpline</dt><dd><p>Linearly interpolates the quantile function of <code class="docutils literal notranslate"><span class="pre">values</span></code> with the weights described by <code class="docutils literal notranslate"><span class="pre">weight_name</span></code>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Semianalytic Inference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dwarf.html">Dwarf class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observation.html">observation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satgendata.html">SatGenData class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Weights class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="satgendata.html" title="previous chapter">SatGenData class</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dylan Folsom.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/weights.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

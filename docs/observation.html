@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>observation module &#8212; Semianalytic Inference 2023-11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SatGenData class" href="satgendata.html" />
+    <link rel="prev" title="Dwarf class" href="dwarf.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-observation">
+<span id="observation-module"></span><h1>observation module<a class="headerlink" href="#module-observation" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="#module-observation" title="observation"><code class="xref py py-mod docutils literal notranslate"><span class="pre">observation</span></code></a> module contains the observational data used in the analysis.
+The module contains a <code class="xref py py-mod docutils literal notranslate"><span class="pre">numpy</span></code> structured array, <code class="xref py py-data docutils literal notranslate"><span class="pre">observation.raw</span></code>, which is
+intended to be accessed through the <a class="reference internal" href="dwarf.html#observation.Dwarf" title="observation.Dwarf"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dwarf</span></code></a> class. The array contains the
+following information for each dwarf:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The distance modulus <a class="reference internal" href="#r772c6953848b-1" id="id1">[1]</a>,</p></li>
+<li><p>The half-light radius (in arcminutes) <a class="reference internal" href="#r772c6953848b-1" id="id2">[1]</a>,</p></li>
+<li><p>The ellipticity <a class="reference internal" href="#r772c6953848b-1" id="id3">[1]</a>,</p></li>
+<li><p>The heliocentric line-of-sight velocity dispersion (in km/s) <a class="reference internal" href="#r772c6953848b-1" id="id4">[1]</a>,</p></li>
+<li><p>The base-ten logarithm of the V-band luminosity (in <span class="math notranslate nohighlight">\(L_\odot\)</span>) <a class="reference internal" href="#r772c6953848b-2" id="id5">[2]</a>,</p></li>
+<li><p>The pericentric distance (in kpc) <a class="reference internal" href="#r772c6953848b-3" id="id6">[3]</a>,</p></li>
+<li><p>The infall time (in Gyr lookback) <a class="reference internal" href="#r772c6953848b-4" id="id7">[4]</a>, and</p></li>
+<li><p>The present-day galactocentric distance (in kpc) <a class="reference internal" href="#r772c6953848b-2" id="id8">[2]</a>.</p></li>
+</ul>
+</div></blockquote>
+<p>Each of these (save the galactocentric distance) has an associated upper and lower uncertainty,
+corresponding to the 16th and 85th percentiles for the value.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r772c6953848b-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id2">2</a>,<a role="doc-backlink" href="#id3">3</a>,<a role="doc-backlink" href="#id4">4</a>)</span>
+<p>Battaglia+22, <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2022A%26A...657A..54B/abstract">2022A&amp;A…657A..54B</a></p>
+</div>
+<div class="citation" id="r772c6953848b-2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id5">1</a>,<a role="doc-backlink" href="#id8">2</a>)</span>
+<p>Muñoz+18, <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2018ApJ...860...66M/abstract">2018ApJ…860…66M</a></p>
+</div>
+<div class="citation" id="r772c6953848b-3" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id6">3</a><span class="fn-bracket">]</span></span>
+<p>Pace+22, <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2022ApJ...940..136P/abstract">2022ApJ…940..136P</a></p>
+</div>
+<div class="citation" id="r772c6953848b-4" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">4</a><span class="fn-bracket">]</span></span>
+<p>Fillingham+19, <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2019arXiv190604180F/abstract">2019arXiv190604180F</a></p>
+</div>
+</div>
+<section id="methods">
+<h2>Methods<a class="headerlink" href="#methods" title="Permalink to this heading">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="observation.idx">
+<span class="sig-prename descclassname"><span class="pre">observation.</span></span><span class="sig-name descname"><span class="pre">idx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dwarf_name</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/observation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observation.idx" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds the index corresponding to a dwarf in the <code class="xref py py-data docutils literal notranslate"><span class="pre">observation.raw</span></code> array,
+allowing for capitalization, spaces, and common abbreviations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dwarf_name</strong><span class="classifier">str</span></dt><dd><p>The name of the dwarf.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>int</dt><dd><p>The index into <code class="xref py py-data docutils literal notranslate"><span class="pre">observation.raw</span></code> corresponding to the dwarf.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt>KeyError</dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">dwarf_name</span></code> is unrecognized.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="dwarf.html#observation.Dwarf" title="observation.Dwarf"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dwarf</span></code></a>(name[, ML_ratio, ML_error, ...])</p></td>
+<td><p>Interprets the raw observational data to allow easy access to probability distributions of known parameters.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Semianalytic Inference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dwarf.html">Dwarf class</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">observation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satgendata.html">SatGenData class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="weights.html">Weights class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="dwarf.html" title="previous chapter">Dwarf class</a></li>
+      <li>Next: <a href="satgendata.html" title="next chapter">SatGenData class</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dylan Folsom.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/observation.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

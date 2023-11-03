@@ -1,0 +1,196 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Dwarf class &#8212; Semianalytic Inference 2023-11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="observation module" href="observation.html" />
+    <link rel="prev" title="analysis module" href="analysis.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="dwarf-class">
+<h1>Dwarf class<a class="headerlink" href="#dwarf-class" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="observation.Dwarf">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">observation.</span></span><span class="sig-name descname"><span class="pre">Dwarf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ML_ratio</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ML_error</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logMstar_scatter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.16</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/observation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observation.Dwarf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interprets the raw observational data to allow easy access to probability
+distributions of known parameters.</p>
+<p>PDFs are constructed internally as two-sided Gaussians to account for asymmetric
+observational uncertainties. For an observational value <span class="math notranslate nohighlight">\(\mu_{-\sigma_{\downarrow}}^{+\sigma_{\uparrow}}\)</span>,
+the PDF is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}f_i(\theta) = \frac{2}{\sigma_\uparrow + \sigma_\downarrow} \times \begin{cases}\operatorname{Norm}(\theta;\;\mu,\,\sigma_\downarrow) &amp; \theta &lt; \mu \\ \operatorname{Norm}(\theta;\;\mu,\,\sigma_\uparrow) &amp; \theta \geq \mu \end{cases}\end{split}\]</div>
+<p>with</p>
+<div class="math notranslate nohighlight">
+\[\operatorname{Norm}(x;\;\mu,\,\sigma) = \frac{1}{\sqrt{2\pi}\sigma}\exp\left[-\frac{1}{2}\left(\frac{x - \mu}{\sigma}\right)^2\right]\]</div>
+<p class="rubric">Notes</p>
+<p>For each physical quantity (<code class="xref py py-attr docutils literal notranslate"><span class="pre">rhalf</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">logMhalf</span></code>, etc.), there is also an associated <code class="docutils literal notranslate"><span class="pre">&lt;quantity&gt;_err</span></code>
+attribute containing the lower and upper error bars, both as non-negative floats. These are used to compute the two-sided Gaussian PDFs.</p>
+<p class="rubric">References</p>
+<div role="list" class="citation-list">
+<div class="citation" id="r85985af06f5d-1" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">1</a><span class="fn-bracket">]</span></span>
+<p>Sanders-Evans16 <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2016ApJ...830L..26S">2016ApJ…830L..26S</a></p>
+</div>
+<div class="citation" id="r85985af06f5d-2" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">2</a><span class="fn-bracket">]</span></span>
+<p>Wolf+16 <a class="reference external" href="https://ui.adsabs.harvard.edu/abs/2010MNRAS.406.1220W">2010MNRAS.406.1220W</a></p>
+</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>name</strong><span class="classifier">str</span></dt><dd><p>The full name of the dwarf</p>
+</dd>
+<dt><strong>rhalf</strong><span class="classifier">float</span></dt><dd><p>The 3D sphericalized, deprojected half-light radius in pc, computed as per <a class="reference internal" href="#r85985af06f5d-1" id="id3">[1]</a>.</p>
+</dd>
+<dt><strong>logMhalf</strong><span class="classifier">float</span></dt><dd><p>The base-ten logarithm of the mass in <span class="math notranslate nohighlight">\(M_\odot\)</span> within <code class="xref py py-attr docutils literal notranslate"><span class="pre">rhalf</span></code>, as determined by the Wolf+16 estimator <a class="reference internal" href="#r85985af06f5d-2" id="id4">[2]</a>.</p>
+</dd>
+<dt><strong>logMstar</strong><span class="classifier">float</span></dt><dd><p>The base-ten logarithm of the stellar mass in <span class="math notranslate nohighlight">\(M_\odot\)</span>, computed via a mass-to-light ratio.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>logMstar_pdf(logMstar)</strong></p></td>
+<td><p>Evaluates the observed PDF for <span class="math notranslate nohighlight">\(\log_{10}M_\star\)</span> at the value <code class="docutils literal notranslate"><span class="pre">logMstar</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p><strong>logMhalf_pdf(logMhalf)</strong></p></td>
+<td><p>Evaluates the observed PDF for <span class="math notranslate nohighlight">\(\log_{10}M_{1/2}\)</span> at the value <code class="docutils literal notranslate"><span class="pre">logMhalf</span></code></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="observation.Dwarf.logMhalf_pdf">
+<span class="sig-name descname"><span class="pre">logMhalf_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logMhalf</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/observation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observation.Dwarf.logMhalf_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the PDF for <span class="math notranslate nohighlight">\(f_i(\log_{10}M_{1/2})\)</span> at the value <code class="xref py py-attr docutils literal notranslate"><span class="pre">logMhalf</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>logMhalf</strong><span class="classifier">float</span></dt><dd><p>the value at which to evaluate the PDF.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="observation.Dwarf.logMstar_pdf">
+<span class="sig-name descname"><span class="pre">logMstar_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logMstar</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/observation.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#observation.Dwarf.logMstar_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the PDF for <span class="math notranslate nohighlight">\(f_i(\log_{10}M_\star)\)</span> at the value <code class="xref py py-attr docutils literal notranslate"><span class="pre">logMstar</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>logMstar</strong><span class="classifier">float</span></dt><dd><p>the value at which to evaluate the PDF.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Semianalytic Inference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">analysis module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Dwarf class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observation.html">observation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satgendata.html">SatGenData class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="weights.html">Weights class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="analysis.html" title="previous chapter">analysis module</a></li>
+      <li>Next: <a href="observation.html" title="next chapter">observation module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dylan Folsom.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/dwarf.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

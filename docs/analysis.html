@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>analysis module &#8212; Semianalytic Inference 2023-11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dwarf class" href="dwarf.html" />
+    <link rel="prev" title="Repository Documentation" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-analysis">
+<span id="analysis-module"></span><h1>analysis module<a class="headerlink" href="#module-analysis" title="Permalink to this heading">¶</a></h1>
+<p>The <a class="reference internal" href="#module-analysis" title="analysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">analysis</span></code></a> module contains the components of the inference related to <code class="docutils literal notranslate"><span class="pre">SatGen</span></code>:</p>
+<ol class="arabic simple">
+<li><p>The <a class="reference internal" href="satgendata.html#analysis.SatGenData" title="analysis.SatGenData"><code class="xref py py-class docutils literal notranslate"><span class="pre">SatGenData</span></code></a> class acts as a wrapper around the processed <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output, and holds the direct sampling of <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\boldsymbol{x},\,\boldsymbol{\theta})\)</span> (i.e., the full parameter information of each <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellite) as well as the interpolated <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\boldsymbol{\theta})\)</span> distributions.</p></li>
+<li><p>The <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> class combines these with observed values to compute the weight applied to each <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellite for a given choice of <span class="math notranslate nohighlight">\(\boldsymbol{\theta}\)</span>.</p></li>
+</ol>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">¶</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="satgendata.html#analysis.SatGenData" title="analysis.SatGenData"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SatGenData</span></code></a>(fname)</p></td>
+<td><p>Acts as a wrapper around the processed <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Weights</span></code></a>(satgen_sim, dwarf)</p></td>
+<td><p>Provides weights for <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output such that their distribution can approximate observed probability distributions.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Semianalytic Inference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dwarf.html">Dwarf class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observation.html">observation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satgendata.html">SatGenData class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="weights.html">Weights class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Repository Documentation</a></li>
+      <li>Next: <a href="dwarf.html" title="next chapter">Dwarf class</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dylan Folsom.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/analysis.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

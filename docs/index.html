@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Repository Documentation &#8212; Semianalytic Inference 2023-11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="analysis module" href="analysis.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="repository-documentation">
+<h1>Repository Documentation<a class="headerlink" href="#repository-documentation" title="Permalink to this heading">¶</a></h1>
+<p>This repository contains code relevant to Folsom et. al (2023), “Probabilistic Inference of the Structure and Orbit of Milky Way Satellites with Semi-Analytic Modeling.” The code provided demonstrates how to infer distributions of various properties of Milky Way satellites and is designed with the intention of being fairly easy to interpret and extend.</p>
+<p>There are four datasets associated with this paper, available on Zenodo. These datasets correspond to each combination of the baryonic feedback model (NIHAO emulator vs APOSTLE emulator) and stellar mass – halo mass relation (RP17 vs B13). See the paper for more detail on the datasets themselves.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">sample_notebook.ipynb</span></code> file provides an example of how to use the code, and it acts as a quickstart guide to performing other inferences. Each of the modules has documentation provided in the form of docstrings which can be consulted for more information.</p>
+<p>For further concerns, feel free to contact Dylan Folsom (<a class="reference external" href="mailto:dfolsom&#37;&#52;&#48;princeton&#46;edu">dfolsom<span>&#64;</span>princeton<span>&#46;</span>edu</a>)</p>
+</section>
+<section id="dependencies">
+<h1>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading">¶</a></h1>
+<p>Required for analysis scripts:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SatGen</span></code> (available via <a class="reference external" href="https://anaconda.org/conda-forge/satgen">anaconda</a> or <a class="reference external" href="https://github.com/shergreen/SatGen">GitHub</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">astropy</span></code> (<a class="reference external" href="https://www.astropy.org/">link</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">scipy</span></code> (<a class="reference external" href="https://scipy.org/">link</a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numpy</span></code> (<a class="reference external" href="https://numpy.org">link</a>)</p></li>
+</ul>
+</div></blockquote>
+<p>Required for the <code class="docutils literal notranslate"><span class="pre">sample_notebook.ipynb</span></code>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">matplotlib</span></code> (<a class="reference external" href="https://matplotlib.org/">link</a>)</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="contents">
+<h1>Contents<a class="headerlink" href="#contents" title="Permalink to this heading">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dwarf.html">Dwarf class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observation.html">observation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satgendata.html">SatGenData class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="weights.html">Weights class</a></li>
+</ul>
+</div>
+</section>
+<section id="index">
+<h1>Index<a class="headerlink" href="#index" title="Permalink to this heading">¶</a></h1>
+<ul class="simple">
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
+</ul>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="#">Semianalytic Inference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dwarf.html">Dwarf class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observation.html">observation module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="satgendata.html">SatGenData class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="weights.html">Weights class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+      <li>Next: <a href="analysis.html" title="next chapter">analysis module</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dylan Folsom.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>SatGenData class &#8212; Semianalytic Inference 2023-11 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Weights class" href="weights.html" />
+    <link rel="prev" title="observation module" href="observation.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="satgendata-class">
+<h1>SatGenData class<a class="headerlink" href="#satgendata-class" title="Permalink to this heading">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="analysis.SatGenData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">analysis.</span></span><span class="sig-name descname"><span class="pre">SatGenData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.SatGenData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Acts as a wrapper around the processed <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output.</p>
+<p>This class holds both the raw <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> data, which samples the distribution <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\boldsymbol{x},\,\boldsymbol{\theta})\)</span>,
+and the interpolated <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\boldsymbol{\theta})\)</span> distributions. Generally, you will only need to access attributes corresponding
+to the parameters you want to infer (e.g., <span class="math notranslate nohighlight">\(r_\mathrm{max}\)</span>, <span class="math notranslate nohighlight">\(v_\mathrm{max}\)</span>), and you will use a <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a> object to interface with
+the internals of the class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>profiles</strong><span class="classifier">list(SatGen.profiles.Dekel)</span></dt><dd><p>The profiles of the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites.</p>
+</dd>
+<dt><strong>logMstar</strong><span class="classifier">np.ndarray(float)</span></dt><dd><p>Base-ten logarithm of the stellar mass (in <span class="math notranslate nohighlight">\(M_\odot\)</span>) for the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites.</p>
+</dd>
+<dt><strong>logMhalf</strong><span class="classifier">dict</span></dt><dd><p>Maps from a dwarf name to an <code class="docutils literal notranslate"><span class="pre">np.ndarray</span></code> of <span class="math notranslate nohighlight">\(M(r_{1/2})\)</span> (in <span class="math notranslate nohighlight">\(M_\odot\)</span>) for the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites, where <span class="math notranslate nohighlight">\(r_{1/2}\)</span> is the observed value for the MW dwarf.</p>
+</dd>
+<dt><strong>data</strong><span class="classifier">np.ndarray</span></dt><dd><p>Contains full information about all the satellites in the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> file. All other attributes are ultimately derived from this array, but it is preferred to use <a class="reference internal" href="#analysis.SatGenData.get" title="analysis.SatGenData.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a> to access the data.</p>
+</dd>
+<dt><strong>hosts</strong><span class="classifier">np.ndarray</span></dt><dd><p>Contains full information about the MW hosts of the satellites. <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> has a <code class="docutils literal notranslate"><span class="pre">hostID</span></code> key which maps into this array.</p>
+</dd>
+<dt><strong>surviving, calibrated, splashback</strong><span class="classifier">np.ndarray(bool)</span></dt><dd><p>Used to select satellites from the <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> array which are relevant to the study, i.e., those that are above the mass resolution, within the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> calibrated regime (with regard to mass loss and innermost slope), and within the MW’s virial radius, respectively.</p>
+</dd>
+<dt><strong>mask</strong><span class="classifier">np.ndarray(bool)</span></dt><dd><p>Used to select satellites from the <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> array which pass all the cuts implemented by <code class="xref py py-attr docutils literal notranslate"><span class="pre">surviving</span></code>, <code class="xref py py-attr docutils literal notranslate"><span class="pre">calibrated</span></code>, and <code class="xref py py-attr docutils literal notranslate"><span class="pre">splashback</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Methods</p>
+<table class="docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><strong>get(attr)</strong></p></td>
+<td><p>Retrives the attribute <code class="docutils literal notranslate"><span class="pre">attr</span></code> from the <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> array, applying the <code class="xref py py-attr docutils literal notranslate"><span class="pre">mask</span></code> cut to select only satellites relevant to the study.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>get_pdf(attr)</strong></p></td>
+<td><p>Similar to <a class="reference internal" href="#analysis.SatGenData.get" title="analysis.SatGenData.get"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get()</span></code></a>, but returns an interpolated histogram PDF for <code class="docutils literal notranslate"><span class="pre">attr</span></code> rather than the <code class="docutils literal notranslate"><span class="pre">attr</span></code> values themselves.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>logMstar_pdf(logMstar)</strong></p></td>
+<td><p>Evaluates the PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\log_{10}M_\star)\)</span> at <code class="docutils literal notranslate"><span class="pre">logMstar</span></code>. Used in <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a>.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>logMhalf_pdf(dwarf_name, logMhalf)</strong></p></td>
+<td><p>Evaluates the PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\log_{10}M_{1/2})\)</span> at <code class="docutils literal notranslate"><span class="pre">logMhalf</span></code>. Since the <span class="math notranslate nohighlight">\(M_{1/2}\)</span> values depend on the radius <span class="math notranslate nohighlight">\(r_{1/2}\)</span> at which it is measured, this PDF depends on the MW dwarf and its <span class="math notranslate nohighlight">\(r_{1/2}\)</span> value.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>joint_mass_pdf(dwarf_name, logMstar, logMhalf)</strong></p></td>
+<td><p>Evaluates the joint PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\log_{10}M_\star, \log_{10}M_{1/2})\)</span> at (<code class="docutils literal notranslate"><span class="pre">logMstar</span></code>, <code class="docutils literal notranslate"><span class="pre">logMhalf</span></code>). Used in <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a>.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.SatGenData.get">
+<span class="sig-name descname"><span class="pre">get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.SatGenData.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve fields from the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>attr</strong><span class="classifier">str</span></dt><dd><p>The name of the attribute to retrieve. This is taken from <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> with the <code class="xref py py-attr docutils literal notranslate"><span class="pre">mask</span></code> applied to select only satellites relevant to the study.</p>
+</dd>
+<dt><strong>log</strong><span class="classifier">bool, optional</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return the base-ten logarithm of the <code class="docutils literal notranslate"><span class="pre">attr</span></code> values.</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>np.ndarray</dt><dd><p>Values for the attribute for each <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellite.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.SatGenData.get_pdf">
+<span class="sig-name descname"><span class="pre">get_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.SatGenData.get_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a probability distribution describing a field from the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> output data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>attr</strong><span class="classifier">str</span></dt><dd><p>The name of the attribute to retrieve a PDF for. This is taken from <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> with the <code class="xref py py-attr docutils literal notranslate"><span class="pre">mask</span></code> applied to select only satellites relevant to the study.</p>
+</dd>
+<dt><strong>log</strong><span class="classifier">bool, optional</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, return the PDF of the base-ten logarithm of the <code class="docutils literal notranslate"><span class="pre">attr</span></code> values.</p>
+</dd>
+<dt><strong>bins</strong><span class="classifier">optional</span></dt><dd><p>Options passed to <code class="docutils literal notranslate"><span class="pre">np.histogram</span></code>. Defaults to <code class="xref py py-attr docutils literal notranslate"><span class="pre">PDF_N_BINS</span></code>, which is the number of <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites in the distribution divided by 20,000 (a value arbitrarily chosen to give good PDF resolution)</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>scipy.interpolate.RegularGridInterpolator</dt><dd><p>Interpolator for the PDF.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.SatGenData.joint_mass_pdf">
+<span class="sig-name descname"><span class="pre">joint_mass_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dwarf_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logMstar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logMhalf</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.SatGenData.joint_mass_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\log_{10}M_\star, \log_{10}M_{1/2})\)</span> at (<code class="docutils literal notranslate"><span class="pre">logMstar</span></code>, <code class="docutils literal notranslate"><span class="pre">logMhalf</span></code>). Used in <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dwarf_name</strong><span class="classifier">str</span></dt><dd><p>The name of the dwarf to use for <span class="math notranslate nohighlight">\(r_{1/2}\)</span>.</p>
+</dd>
+<dt><strong>logMstar</strong><span class="classifier">float or list of float</span></dt><dd><p>The value of <span class="math notranslate nohighlight">\(\log_{10}M_\star\)</span> at which to evaluate the PDF</p>
+</dd>
+<dt><strong>logMshalf</strong><span class="classifier">float or list of float</span></dt><dd><p>The value of <span class="math notranslate nohighlight">\(\log_{10}M_{1/2}\)</span> at which to evaluate the PDF</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float or list of float</dt><dd><p>Value of the PDF at (<code class="docutils literal notranslate"><span class="pre">logMstar</span></code>, <code class="docutils literal notranslate"><span class="pre">logMhalf</span></code>)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.SatGenData.logMhalf_pdf">
+<span class="sig-name descname"><span class="pre">logMhalf_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dwarf_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">logMhalf</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.SatGenData.logMhalf_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\log_{10}M(r_{1/2}))\)</span> at <code class="docutils literal notranslate"><span class="pre">logMhalf</span></code>. Used in <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>dwarf_name</strong><span class="classifier">str</span></dt><dd><p>The name of the dwarf to use for <span class="math notranslate nohighlight">\(r_{1/2}\)</span>.</p>
+</dd>
+<dt><strong>logMhalf</strong><span class="classifier">float or list of float</span></dt><dd><p>The value at which to evaluate the PDF</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float or list of float</dt><dd><p>Value of the PDF at <code class="docutils literal notranslate"><span class="pre">logMstar</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>This PDF is that of the enclosed mass profile of the <code class="docutils literal notranslate"><span class="pre">SatGen</span></code> satellites evaluated at a MW dwarf’s half-light radius <span class="math notranslate nohighlight">\(r_{1/2}\)</span>. As such, it depends on the dwarf of interest.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="analysis.SatGenData.logMstar_pdf">
+<span class="sig-name descname"><span class="pre">logMstar_pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logMstar</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/folsomde/Semianalytic_Inference/blob/main/src/analysis.py"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#analysis.SatGenData.logMstar_pdf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluates the PDF <span class="math notranslate nohighlight">\(f_\mathrm{pred}(\log_{10}M_\star)\)</span> at <code class="docutils literal notranslate"><span class="pre">logMstar</span></code>. Used in <a class="reference internal" href="weights.html#analysis.Weights" title="analysis.Weights"><code class="xref py py-class docutils literal notranslate"><span class="pre">Weights</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>logMstar</strong><span class="classifier">float or list of float</span></dt><dd><p>The value at which to evaluate the PDF</p>
+</dd>
+</dl>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><dl class="simple">
+<dt>float or list of float</dt><dd><p>Value of the PDF at <code class="docutils literal notranslate"><span class="pre">logMstar</span></code></p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Semianalytic Inference</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">analysis module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dwarf.html">Dwarf class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="observation.html">observation module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">SatGenData class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="weights.html">Weights class</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="observation.html" title="previous chapter">observation module</a></li>
+      <li>Next: <a href="weights.html" title="next chapter">Weights class</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Dylan Folsom.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/satgendata.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
