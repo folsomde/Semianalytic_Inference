@@ -3,7 +3,7 @@ This repository contains code relevant to Folsom et. al (2023), "Probabilistic I
 
 There are four datasets associated with this paper, available on Zenodo. These datasets correspond to each combination of the baryonic feedback model (NIHAO emulator vs APOSTLE emulator) and stellar mass -- halo mass relation (RP17 vs B13). See the paper for more detail on the datasets themselves.
 
-The `sample_notebook.ipynb` file provides an example of how to use the code, and it acts as a quickstart guide to performing other inferences. Each of the modules has documentation provided in the form of docstrings (accessible in HTML format [here](https://htmlpreview.github.io/?https://github.com/dfolsom/Semianalytic_Inference/blob/main/docs/index.html)) which can be consulted for more information.
+The `sample_notebook.ipynb` file provides an example of how to use the code, and it acts as a quickstart guide to performing other inferences. Each of the modules has documentation provided in the form of docstrings (accessible in HTML format [here](https://rawcdn.githack.com/folsomde/Semianalytic_Inference/main/docs/index.html)) which can be consulted for more information.
 
 For further inquiry, feel free to contact Dylan Folsom (dfolsom@princeton.edu)
 
