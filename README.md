@@ -1,7 +1,7 @@
 # README
-This repository contains code relevant to Folsom et al. (2023), "Probabilistic Inference of the Structure and Orbit of Milky Way Satellites with Semi-Analytic Modeling." The code provided demonstrates how to infer distributions of various properties of Milky Way satellites and is designed with the intention of being fairly easy to interpret and extend.
+This repository contains code relevant to [Folsom et al. (2023)](https://arxiv.org/abs/2311.05676), "Probabilistic Inference of the Structure and Orbit of Milky Way Satellites with Semi-Analytic Modeling." The code provided demonstrates how to infer distributions of various properties of Milky Way satellites and is designed with the intention of being fairly easy to interpret and extend.
 
-There are four datasets associated with this paper, [available on Zenodo](https://zenodo.org/doi/10.5281/zenodo.10068111). These datasets correspond to each combination of the baryonic feedback model (NIHAO emulator vs APOSTLE emulator) and stellar mass -- halo mass relation (RP17 vs B13). See the paper for more detail on the datasets themselves.
+There are four datasets associated with this paper, [available on Zenodo](https://zenodo.org/doi/10.5281/zenodo.10068111). These datasets correspond to each combination of the baryonic feedback model (NIHAO emulator vs APOSTLE emulator) and stellar mass -- halo mass relation (RP17 vs B13). See the paper ([arXiv:2311.05676](https://arxiv.org/abs/2311.05676))for more detail on the datasets themselves.
 
 The `sample_notebook.ipynb` file provides an example of how to use the code, and it acts as a quickstart guide to performing other inferences. Each of the modules has documentation provided in the form of docstrings (accessible in HTML format [here](https://rawcdn.githack.com/folsomde/Semianalytic_Inference/main/docs/index.html)) which can be consulted for more information.
 
